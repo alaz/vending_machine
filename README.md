@@ -8,6 +8,14 @@ A famous "vending machine" coding task implemented as
 * state pattern, i.e. every state accepts only some methods relevant to that
   state.
 
+# Install
+
+```
+brew install rbenv
+rbenv install
+bundle
+```
+
 # How to play
 
 ```
