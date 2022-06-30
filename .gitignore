@@ -1,7 +1,5 @@
-Gemfile.lock
 .bundle
 *.gem
-*.gemfile.lock
 /pkg
 /tags
 /vendor
