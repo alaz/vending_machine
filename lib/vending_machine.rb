@@ -125,23 +125,16 @@ end
 # prices: {product_id -> price as int}
 # denominations: [in cents]
 VendingMachine = Struct.new :prices, :denominations do
-  def zero_state
-    inventory = prices.transform_values { 0 }
-    till = denominations.to_h { |d| [d, 0] }
-    [inventory, till]
+  def initialize(prices, denominations)
+    super
+    normalize_denominations
   end
 
   def create(display: nil)
     denominations.sort!
     denominations.reverse!
 
-    display ||= Ractor.new do
-      loop do
-        puts Ractor.receive
-      end
-    end
-
-    Ractor.new [display, self, *zero_state] do |display, config, *initial_state|
+    Ractor.new [display || default_display, self, *zero_state] do |display, config, *initial_state|
       machine_methods = {
         accepted_coins: proc { config.denominations },
         prices: proc { config.prices }
@@ -167,6 +160,27 @@ VendingMachine = Struct.new :prices, :denominations do
       rescue Timeout::Error
         # Occasional touting
         display.send 'Hiya, do you need anything?'
+      end
+    end
+  end
+
+  def zero_state
+    inventory = prices.transform_values { 0 }
+    till = denominations.to_h { |d| [d, 0] }
+    [inventory, till]
+  end
+
+  private
+
+  def normalize_denominations
+    denominations.sort!
+    denominations.reverse!
+  end
+
+  def default_display
+    Ractor.new do
+      loop do
+        puts Ractor.receive
       end
     end
   end
