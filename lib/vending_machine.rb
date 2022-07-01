@@ -133,9 +133,6 @@ VendingMachine = Struct.new :prices, :denominations do
   end
 
   def create(display: nil)
-    denominations.sort!
-    denominations.reverse!
-
     Ractor.new [display || default_display, self, *zero_state] do |display, config, *initial_state|
       machine_methods = {
         accepted_coins: proc { config.denominations },
