@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'timeout'
+
 module AbstractState # :nodoc:
   def dump
     [self, deconstruct_keys(members).merge(config:, state:)]
