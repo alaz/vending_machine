@@ -145,10 +145,10 @@ VendingMachine = Struct.new :prices, :denominations do
         display << "The vending machine is #{state.state}"
         Timeout.timeout 60 do
           msg = state.receive
-          next display.send(machine_methods[msg].call) if machine_methods.include? msg
+          next display << machine_methods[msg].call if machine_methods.include? msg
 
           msg = [msg] unless msg.is_a? Array
-          next display.send("Unsupported method `#{msg[0]}`") unless state.respond_to? msg[0]
+          next display << "Unsupported method `#{msg[0]}`" unless state.respond_to? msg[0]
 
           state = state.send(*msg)
           if state.is_a? Array
@@ -158,7 +158,7 @@ VendingMachine = Struct.new :prices, :denominations do
         end
       rescue Timeout::Error
         # Occasional touting
-        display.send 'Hiya, do you need anything?'
+        display << 'Hiya, do you need anything?'
       end
     end
   end
