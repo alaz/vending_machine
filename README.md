@@ -3,10 +3,9 @@
 A famous "vending machine" coding task implemented as
 
 * [Ruby Ractor](https://docs.ruby-lang.org/en/master/ractor_md.html), because
-  they are similar to Scala Actors and "timeout on waiting" can be easily
-  implemented;
-* state pattern, i.e. every state accepts only some methods relevant to that
-  state.
+  * a state is securely locked and hidden inside Ractor;
+  * "timeout on waiting" can be easily implemented;
+* state pattern, i.e. every state accepts only actions applicable in that state.
 
 # Install
 
@@ -14,6 +13,12 @@ A famous "vending machine" coding task implemented as
 brew install rbenv
 rbenv install
 bundle
+```
+
+# Test
+
+```
+bundle exec rake test
 ```
 
 # How to play
