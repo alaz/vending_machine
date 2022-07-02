@@ -1,12 +1,13 @@
 # What
 
-A famous "vending machine" coding task implemented as
+The famous "vending machine" coding task implemented as
 
 * [Ruby Ractor](https://docs.ruby-lang.org/en/master/ractor_md.html), because
   * a state is securely locked and hidden inside Ractor;
   * "timeout on waiting" can be easily implemented;
   * I wanted to build it with Scala Actors, but the native library has been
-    deprecated and I am neither a fan of Akka nor of unnecessary dependencies.
+    deprecated and I am neither a fan of Akka nor of unnecessary dependencies;
+  * I have been curious about playing with Ractor library for quite a while.
 * state pattern: every state accepts only actions applicable in that state.
 * factory pattern: build as many identical vending machines as you want.
 
