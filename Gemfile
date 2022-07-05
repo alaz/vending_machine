@@ -2,8 +2,11 @@
 
 source 'https://rubygems.org'
 
-gem 'minitest'
 gem 'rake'
-gem 'rubocop'
-gem 'rubocop-minitest'
-gem 'rubocop-rake'
+
+group :test do
+  gem 'minitest'
+  gem 'rubocop'
+  gem 'rubocop-minitest'
+  gem 'rubocop-rake'
+end
